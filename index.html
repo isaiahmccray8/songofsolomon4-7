@@ -32,31 +32,10 @@ body{
   overflow:hidden;
 }
 
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background: radial-gradient(circle at center, transparent 55%, rgba(0,0,0,0.35));
-}
-
-/* floating hearts */
-.bgFloat{ position:fixed; inset:0; pointer-events:none; }
-.floatItem{
-  position:absolute;
-  opacity:0.25;
-  animation: floatUp linear infinite;
-}
-@keyframes floatUp{
-  from{transform:translateY(110vh)}
-  to{transform:translateY(-20vh)}
-}
-
-/* card */
-.wrap{ width:min(92vw,580px); }
+.wrap{ width:min(92vw,600px); }
 
 .card{
-  padding:34px;
+  padding:36px;
   border-radius:30px;
   background: rgba(255,255,255,0.14);
   backdrop-filter: blur(16px);
@@ -76,7 +55,7 @@ h1{
 p{
   margin-top:16px;
   font-size:15px;
-  line-height:1.7;
+  line-height:1.75;
 }
 
 .poem{
@@ -90,7 +69,6 @@ p{
   opacity:0.85;
 }
 
-/* buttons */
 button{
   margin-top:26px;
   border:none;
@@ -99,59 +77,30 @@ button{
   border-radius:18px;
   padding:14px 34px;
   font-size:16px;
-  transition:transform 120ms ease, box-shadow 120ms ease;
 }
-button:active{transform:scale(0.96)}
 
 .primary{
   background:linear-gradient(135deg, var(--gold), var(--rose));
   color:#3a0016;
   box-shadow:0 0 30px rgba(255,122,168,0.9);
-  animation:pulse 2.2s infinite;
-}
-
-@keyframes pulse{
-  0%{box-shadow:0 0 18px rgba(255,122,168,0.6)}
-  50%{box-shadow:0 0 40px rgba(255,122,168,1)}
-  100%{box-shadow:0 0 18px rgba(255,122,168,0.6)}
 }
 
 .secondary{
   background:transparent;
   color:var(--soft);
   border:2px solid rgba(255,214,230,0.85);
-  box-shadow:0 0 18px rgba(255,214,230,0.7);
 }
 
-/* sections */
 .section{ display:none; }
 
-.fade{
-  animation: fadeUp 600ms ease forwards;
-}
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(14px)}
-  to{opacity:1; transform:translateY(0)}
-}
-
-/* question area */
 .area{
   position:relative;
   height:150px;
   margin-top:22px;
 }
 
-.yesBtn{
-  position:absolute;
-  left:40px;
-  top:60px;
-}
-
-.noBtn{
-  position:absolute;
-  left:260px;
-  top:64px;
-}
+.yesBtn{ position:absolute; left:40px; top:60px; }
+.noBtn{ position:absolute; left:260px; top:64px; }
 
 canvas{ position:fixed; inset:0; pointer-events:none; }
 </style>
@@ -159,23 +108,28 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
 
 <body>
 
-<div class="bgFloat" id="bgFloat"></div>
 <canvas id="confetti"></canvas>
 
 <div class="wrap">
   <div class="card">
 
     <!-- INTRO -->
-    <div class="section fade" id="intro">
+    <div class="section" id="intro">
       <h1 id="nameTitle"></h1>
 
       <p class="poem">
-        Love doesn’t rush.<br>
-        It listens before it speaks.<br>
-        It chooses intention over impulse,<br>
-        and meaning over moments.<br><br>
+        Love isn’t loud or rushed.<br>
+        It’s a gift — placed gently in our lives by God,<br>
+        meant to be handled with care.<br><br>
+
+        It shows up in patience,<br>
+        in presence,<br>
+        in choosing someone even on ordinary days.<br><br>
+
         This isn’t about pressure or perfection.<br>
-        It’s about care, honesty, and showing up gently.
+        It’s about intention.<br>
+        You matter to me, and I wanted you to feel that<br>
+        clearly, gently, honestly.
       </p>
 
       <div class="verse">
@@ -184,29 +138,38 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
         hopes all things, endures all things.
       </div>
 
-      <button class="primary" id="toQuestion1">Continue</button>
+      <button class="primary" id="toThanks">Continue</button>
     </div>
 
-    <!-- QUESTION 1 -->
-    <div class="section fade" id="question1">
-      <h1>A question from the heart</h1>
+    <!-- THANK YOU -->
+    <div class="section" id="thanks">
+      <h1>From My Heart</h1>
+
       <p>
-        Do you believe love is something that’s chosen<br>
-        every day — with patience, faith, and care?
+        I just want to pause and say thank you.<br><br>
+
+        Thank you for your patience.<br>
+        Thank you for your kindness.<br>
+        Thank you for the ways you’ve shown up in my life<br>
+        — sometimes without even realizing it.<br><br>
+
+        I truly believe God places people in our lives<br>
+        for a reason and a season,<br>
+        and I don’t take your presence lightly.
       </p>
 
       <div class="verse">
-        <strong>Proverbs 16:3</strong><br>
-        Commit your work to the Lord,<br>
-        and your plans will be established.
+        <strong>James 1:17</strong><br>
+        Every good and perfect gift is from above.
       </div>
 
       <button class="primary" id="toValentine">Continue</button>
     </div>
 
-    <!-- VALENTINE -->
-    <div class="section fade" id="valentine">
-      <h1>Will you be my Valentine?</h1>
+    <!-- VALENTINE QUESTION -->
+    <div class="section" id="valentine">
+      <h1>A Question From the Heart</h1>
+      <p>Will you be my Valentine?</p>
 
       <div class="area" id="area">
         <button class="primary yesBtn" id="yesBtn">Yes</button>
@@ -215,7 +178,7 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
     </div>
 
     <!-- FINAL -->
-    <div class="section fade" id="final">
+    <div class="section" id="final">
       <h1>You are so loved ❤</h1>
       <p>
         Thank you for choosing love.<br>
@@ -233,27 +196,26 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
 
 <script>
 (() => {
-  const herName="Lisa"   // change name here
+  const herName="Lisa"
   nameTitle.textContent=herName
 
   intro.style.display="block"
 
-  toQuestion1.onclick=()=>{
+  toThanks.onclick=()=>{
     intro.style.display="none"
-    question1.style.display="block"
+    thanks.style.display="block"
   }
 
   toValentine.onclick=()=>{
-    question1.style.display="none"
+    thanks.style.display="none"
     valentine.style.display="block"
   }
 
-  /* NO button playful dodge */
   const phrases=[
     "You sure?",
-    "Think again ❤",
-    "Almost chose love",
-    "That’s not it 😌",
+    "Almost ❤",
+    "Think again",
+    "That’s not it",
     "Try the other one"
   ]
 
@@ -267,24 +229,12 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
   noBtn.onmouseenter=moveNo
   noBtn.onclick=moveNo
 
-  /* floating hearts */
-  for(let i=0;i<30;i++){
-    const e=document.createElement("div")
-    e.className="floatItem"
-    e.textContent="❤"
-    e.style.left=Math.random()*100+"vw"
-    e.style.fontSize=14+Math.random()*22+"px"
-    e.style.animationDuration=12+Math.random()*18+"s"
-    bgFloat.appendChild(e)
-  }
-
-  /* confetti */
   const ctx=confetti.getContext("2d")
   const resize=()=>{confetti.width=innerWidth;confetti.height=innerHeight}
   resize(); addEventListener("resize",resize)
   let p=[]
   function burst(){
-    for(let i=0;i<220;i++){
+    for(let i=0;i<200;i++){
       p.push({
         x:innerWidth/2,y:innerHeight*0.35,
         vx:(Math.random()-0.5)*10,
