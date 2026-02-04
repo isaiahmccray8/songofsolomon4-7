@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From My Heart</title>
+
+<style>
+:root{
+  --bg1:#5a0f2e;
+  --bg2:#9e1f4a;
+  --rose:#ff7aa8;
+  --soft:#ffd6e6;
+  --gold:#ffd36a;
+  --text:#fff5f9;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Segoe UI", system-ui, sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 20% 20%, #c12b5a, transparent 60%),
+    radial-gradient(circle at 80% 80%, #ff7aa8, transparent 65%),
+    linear-gradient(160deg, var(--bg1), var(--bg2));
+  overflow:hidden;
+}
+
+.wrap{ width:min(92vw,600px); }
+
+.card{
+  padding:36px;
+  border-radius:30px;
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    0 0 0 2px rgba(255,122,168,0.35),
+    0 0 70px rgba(255,122,168,0.55);
+  text-align:center;
+}
+
+h1{
+  margin:0;
+  font-size:26px;
+  font-weight:900;
+  color:var(--soft);
+}
+
+.subtitle{
+  margin-bottom:18px;
+  font-size:14px;
+  letter-spacing:1px;
+  opacity:0.85;
+}
+
+p{
+  margin-top:16px;
+  font-size:15px;
+  line-height:1.75;
+}
+
+.poem{
+  font-style:italic;
+  opacity:0.95;
+}
+
+.verse{
+  margin-top:14px;
+  font-size:13px;
+  opacity:0.85;
+}
+
+button{
+  margin-top:26px;
+  border:none;
+  cursor:pointer;
+  font-weight:900;
+  border-radius:18px;
+  padding:14px 34px;
+  font-size:16px;
+}
+
+.primary{
+  background:linear-gradient(135deg, var(--gold), var(--rose));
+  color:#3a0016;
+  box-shadow:0 0 30px rgba(255,122,168,0.9);
+}
+
+.secondary{
+  background:transparent;
+  color:var(--soft);
+  border:2px solid rgba(255,214,230,0.85);
+}
+
+.section{ display:none; }
+
+.area{
+  position:relative;
+  height:170px;
+  margin-top:22px;
+}
+
+.yesBtn{ position:absolute; left:40px; top:90px; }
+.noBtn{ position:absolute; left:260px; top:94px; }
+
+.fadeIn{
+  animation: fade 1s ease forwards;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(10px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+canvas{ position:fixed; inset:0; pointer-events:none; }
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="wrap">
+  <div class="card">
+
+    <!-- INTRO -->
+    <div class="section" id="intro">
+      <div class="subtitle" id="dedication"></div>
+
+      <p class="poem">
+        Love isn’t loud or rushed.<br>
+        It’s a gift placed gently in our lives by God,<br>
+        meant to be handled with care.<br><br>
+
+        It shows up in patience,<br>
+        in presence,<br>
+        in choosing someone even on ordinary days.<br><br>
+
+        This isn’t about pressure or perfection.<br>
+        It’s about intention.<br>
+        You matter to me, and I wanted you to feel that<br>
+        clearly, gently, honestly.
+      </p>
+
+      <div class="verse">
+        <strong>1 Corinthians 13:7</strong><br>
+        Love bears all things, believes all things,<br>
+        hopes all things, endures all things.
+      </div>
+
+      <button class="primary" id="toThanks">Continue</button>
+    </div>
+
+    <!-- THANK YOU -->
+    <div class="section" id="thanks">
+      <h1>From My Heart</h1>
+
+      <p>
+        I just want to pause and say thank you.<br><br>
+
+        Thank you for your patience.<br>
+        Thank you for your kindness.<br>
+        Thank you for the ways you’ve shown up in my life<br>
+        sometimes without even realizing it.<br><br>
+
+        I truly believe God places people in our lives<br>
+        for a reason and a season,<br>
+        and I don’t take your presence lightly.
+      </p>
+
+      <div class="verse">
+        <strong>James 1:17</strong><br>
+        Every good and perfect gift is from above.
+      </div>
+
+      <button class="primary" id="toValentine">Continue</button>
+    </div>
+
+    <!-- VALENTINE QUESTION -->
+    <div class="section" id="valentine">
+      <p class="fadeIn">
+        Somewhere between prayer and patience,<br>
+        gratitude and hope,<br>
+        there’s a simple question my heart keeps asking…
+      </p>
+
+      <h1 class="fadeIn" style="margin-top:18px;">
+        Will you be my Valentine?
+      </h1>
+
+      <div class="area" id="area">
+        <button class="primary yesBtn" id="yesBtn">Yes</button>
+        <button class="secondary noBtn" id="noBtn">No</button>
+      </div>
+    </div>
+
+    <!-- FINAL -->
+    <div class="section" id="final">
+      <h1>You are so loved ❤</h1>
+      <p>
+        Thank you for choosing love.<br>
+        I promise to lead with patience,<br>
+        faith, and intention.
+      </p>
+
+      <div class="verse">
+        — Isaiah | Ecclesiastes 4:12
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(() => {
+  const herName="Lisa"
+  dedication.textContent="This is for " + herName + "."
+
+  intro.style.display="block"
+
+  toThanks.onclick=()=>{
+    intro.style.display="none"
+    thanks.style.display="block"
+  }
+
+  toValentine.onclick=()=>{
+    thanks.style.display="none"
+    valentine.style.display="block"
+  }
+
+  const phrases=[
+    "You sure? ❤",
+    "Think again",
+    "Almost there",
+    "Not that one",
+    "Try the other button"
+  ]
+
+  function moveNo(){
+    const r=area.getBoundingClientRect()
+    noBtn.style.left=Math.random()*(r.width-120)+"px"
+    noBtn.style.top=Math.random()*(r.height-50)+"px"
+    noBtn.textContent=phrases[Math.floor(Math.random()*phrases.length)]
+  }
+
+  noBtn.onmouseenter=moveNo
+  noBtn.onclick=moveNo
+
+  const ctx=confetti.getContext("2d")
+  const resize=()=>{confetti.width=innerWidth;confetti.height=innerHeight}
+  resize(); addEventListener("resize",resize)
+  let p=[]
+  function burst(){
+    for(let i=0;i<220;i++){
+      p.push({
+        x:innerWidth/2,y:innerHeight*0.35,
+        vx:(Math.random()-0.5)*10,
+        vy:-Math.random()*10,
+        a:1
+      })
+    }
+  }
+  function tick(){
+    ctx.clearRect(0,0,confetti.width,confetti.height)
+    p.forEach(o=>{
+      o.x+=o.vx; o.y+=o.vy; o.vy+=0.18; o.a-=0.01
+      ctx.globalAlpha=o.a
+      ctx.fillStyle="#ffd6e6"
+      ctx.fillRect(o.x,o.y,4,4)
+    })
+    p=p.filter(o=>o.a>0)
+    requestAnimationFrame(tick)
+  }
+  tick()
+
+  yesBtn.onclick=()=>{
+    burst(); burst()
+    valentine.style.display="none"
+    f
