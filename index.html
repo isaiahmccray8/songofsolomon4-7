@@ -6,6 +6,7 @@
 <title>A Message Just for You</title>
 
 <style>
+/* ================= INTRO STYLES ================= */
 :root{
   --pink1:#ffd1e6;
   --pink2:#ff9fd0;
@@ -25,6 +26,14 @@ body{
   font-family:"Segoe UI", system-ui, sans-serif;
   color:var(--ink);
   overflow:hidden;
+}
+
+.intro{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background:
     radial-gradient(circle at 15% 20%, #ffe6f2 0%, rgba(255,230,242,0) 55%),
     radial-gradient(circle at 80% 25%, #ffd0ea 0%, rgba(255,208,234,0) 55%),
@@ -32,21 +41,22 @@ body{
     linear-gradient(135deg, var(--pink1), var(--pink2));
 }
 
-/* floating hearts */
 .float{
   position:fixed;
   inset:0;
   pointer-events:none;
 }
+
 .float span{
   position:absolute;
   font-size:22px;
   opacity:0.2;
   animation: rise linear infinite;
 }
+
 @keyframes rise{
-  from{ transform: translateY(110vh) rotate(0deg) }
-  to{ transform: translateY(-20vh) rotate(20deg) }
+  from{ transform: translateY(110vh) }
+  to{ transform: translateY(-20vh) }
 }
 
 .card{
@@ -56,18 +66,6 @@ body{
   text-align:center;
   max-width:460px;
   box-shadow:0 30px 80px rgba(0,0,0,0.2);
-  animation: fadeUp 1.6s ease forwards;
-}
-
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(30px)}
-  to{opacity:1; transform:translateY(0)}
-}
-
-h1{
-  font-size:22px;
-  font-weight:800;
-  margin:0;
 }
 
 .name{
@@ -75,13 +73,6 @@ h1{
   font-size:36px;
   font-weight:900;
   color:var(--pink3);
-  text-shadow:0 10px 30px rgba(255,95,176,0.6);
-}
-
-p{
-  font-size:15px;
-  line-height:1.8;
-  margin:20px 0 28px;
 }
 
 button{
@@ -91,66 +82,162 @@ button{
   border-radius:22px;
   padding:16px 42px;
   font-size:16px;
+}
+
+.openBtn{
   background:linear-gradient(135deg, #ff5fb0, #ffd6ea);
+}
+
+/* ================= MESSAGE PAGE ================= */
+
+.message{
+  display:none;
+  position:absolute;
+  inset:0;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 20% 20%, #c12b5a, transparent 60%),
+    radial-gradient(circle at 80% 80%, #ff7aa8, transparent 65%),
+    linear-gradient(160deg, #5a0f2e, #9e1f4a);
+  color:#fff5f9;
+}
+
+.wrap{ width:min(92vw,600px); }
+
+.msgCard{
+  padding:36px;
+  border-radius:30px;
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(16px);
+  text-align:center;
+}
+
+.section{ display:none; }
+
+.primary{
+  background:linear-gradient(135deg, #ffd36a, #ff7aa8);
   color:#3a0016;
-  box-shadow:0 20px 40px rgba(255,95,176,0.5);
+  padding:14px 34px;
+  border-radius:18px;
+  font-weight:900;
 }
 
-button:hover{ transform:scale(1.05) }
-
-.small{
-  margin-top:18px;
-  font-size:12px;
-  opacity:0.65;
+.secondary{
+  background:transparent;
+  color:#ffd6e6;
+  border:2px solid #ffd6e6;
+  padding:14px 34px;
+  border-radius:18px;
 }
+
+.area{ position:relative; height:170px; }
+
+canvas{ position:fixed; inset:0; pointer-events:none; }
 </style>
 </head>
 
 <body>
 
-<div class="float" id="float"></div>
+<!-- AUDIO -->
+<audio id="song">
+  <source src="the-matrimony-wale.mp3" type="audio/mpeg">
+</audio>
 
-<div class="card">
-  <h1>This message was written</h1>
-  <h1>with prayer, patience, and intention</h1>
+<!-- INTRO -->
+<div class="intro" id="introPage">
+  <div class="float" id="float"></div>
+  <div class="card">
+    <h1>This message was written</h1>
+    <h1>with prayer, patience, and intention</h1>
+    <div class="name" id="herName"></div>
+    <p>Not for the world.<br>Just for you.</p>
+    <button class="openBtn" id="openBtn">Open 🤍</button>
+    <div style="margin-top:14px;font-size:12px;">— Isaiah</div>
+  </div>
+</div>
 
-  <div class="name" id="herName"></div>
+<!-- MESSAGE -->
+<div class="message" id="messagePage">
+  <canvas id="confetti"></canvas>
 
-  <p>
-    Not for the world.  
-    Not for attention.  
-    <br><br>
-    Just for you.
-    <br><br>
-    Take your time.  
-    Read slowly.  
-    Everything after this comes straight from my heart.
-  </p>
+  <div class="wrap">
+    <div class="msgCard">
 
-  <button onclick="enter()">Open 🤍</button>
+      <div class="section" id="valentine">
+        <h1>Will you be my Valentine?</h1>
+        <div class="area" id="area">
+          <button class="primary" id="yesBtn">Yes</button>
+          <button class="secondary" id="noBtn">No</button>
+        </div>
+      </div>
 
-  <div class="small">— Isaiah</div>
+      <div class="section" id="final">
+        <h1>You are so loved ❤</h1>
+        <p>Thank you for choosing love.</p>
+        <div>— Isaiah</div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <script>
-  const name = "Lisa"   // ← CHANGE NAME HERE
-  document.getElementById("herName").textContent = "for " + name
+const name="Lisa"
+herName.textContent="for "+name
 
-  function enter(){
-    window.location.href = "message.html"
-  }
+openBtn.onclick=()=>{
+  introPage.style.display="none"
+  messagePage.style.display="flex"
+  valentine.style.display="block"
+}
 
-  // floating hearts
-  const float = document.getElementById("float")
-  for(let i=0;i<26;i++){
-    const s=document.createElement("span")
-    s.textContent="❤"
-    s.style.left=Math.random()*100+"vw"
-    s.style.animationDuration=(10+Math.random()*12)+"s"
-    s.style.animationDelay=(-Math.random()*10)+"s"
-    s.style.fontSize=(14+Math.random()*24)+"px"
-    float.appendChild(s)
+// floating hearts
+for(let i=0;i<26;i++){
+  const s=document.createElement("span")
+  s.textContent="❤"
+  s.style.left=Math.random()*100+"vw"
+  s.style.animationDuration=(10+Math.random()*12)+"s"
+  float.appendChild(s)
+}
+
+// no button movement
+noBtn.onmouseenter=()=>{
+  noBtn.style.left=Math.random()*200+"px"
+  noBtn.style.top=Math.random()*100+"px"
+}
+
+// confetti
+const ctx=confetti.getContext("2d")
+confetti.width=innerWidth; confetti.height=innerHeight
+let p=[]
+function burst(){
+  for(let i=0;i<200;i++){
+    p.push({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-0.5)*8,vy:-Math.random()*8,a:1})
   }
+}
+function tick(){
+  ctx.clearRect(0,0,confetti.width,confetti.height)
+  p.forEach(o=>{
+    o.x+=o.vx; o.y+=o.vy; o.vy+=0.15; o.a-=0.01
+    ctx.globalAlpha=o.a
+    ctx.fillStyle="#ffd6e6"
+    ctx.fillRect(o.x,o.y,4,4)
+  })
+  p=p.filter(o=>o.a>0)
+  requestAnimationFrame(tick)
+}
+tick()
+
+// YES = MUSIC + CONFETTI
+const song=document.getElementById("song")
+yesBtn.onclick=()=>{
+  burst(); burst()
+  song.volume=0.7
+  song.play()
+  valentine.style.display="none"
+  final.style.display="block"
+}
 </script>
 
 </body>
