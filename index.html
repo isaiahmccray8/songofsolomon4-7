@@ -52,6 +52,13 @@ h1{
   color:var(--soft);
 }
 
+.subtitle{
+  margin-bottom:18px;
+  font-size:14px;
+  letter-spacing:1px;
+  opacity:0.85;
+}
+
 p{
   margin-top:16px;
   font-size:15px;
@@ -95,12 +102,21 @@ button{
 
 .area{
   position:relative;
-  height:150px;
+  height:170px;
   margin-top:22px;
 }
 
-.yesBtn{ position:absolute; left:40px; top:60px; }
-.noBtn{ position:absolute; left:260px; top:64px; }
+.yesBtn{ position:absolute; left:40px; top:90px; }
+.noBtn{ position:absolute; left:260px; top:94px; }
+
+.fadeIn{
+  animation: fade 1s ease forwards;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(10px)}
+  to{opacity:1; transform:translateY(0)}
+}
 
 canvas{ position:fixed; inset:0; pointer-events:none; }
 </style>
@@ -115,7 +131,7 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
 
     <!-- INTRO -->
     <div class="section" id="intro">
-      <h1 id="nameTitle"></h1>
+      <div class="subtitle" id="dedication"></div>
 
       <p class="poem">
         Love isn’t loud or rushed.<br>
@@ -151,7 +167,7 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
         Thank you for your patience.<br>
         Thank you for your kindness.<br>
         Thank you for the ways you’ve shown up in my life<br>
-         sometimes without even realizing it.<br><br>
+        sometimes without even realizing it.<br><br>
 
         I truly believe God places people in our lives<br>
         for a reason and a season,<br>
@@ -168,8 +184,15 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
 
     <!-- VALENTINE QUESTION -->
     <div class="section" id="valentine">
-      <h1>A Question From the Heart</h1>
-      <p>Will you be my Valentine?</p>
+      <p class="fadeIn">
+        Somewhere between prayer and patience,<br>
+        gratitude and hope,<br>
+        there’s a simple question my heart keeps asking…
+      </p>
+
+      <h1 class="fadeIn" style="margin-top:18px;">
+        Will you be my Valentine?
+      </h1>
 
       <div class="area" id="area">
         <button class="primary yesBtn" id="yesBtn">Yes</button>
@@ -197,7 +220,7 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
 <script>
 (() => {
   const herName="Lisa"
-  nameTitle.textContent=herName
+  dedication.textContent="This is for " + herName + "."
 
   intro.style.display="block"
 
@@ -212,11 +235,11 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
   }
 
   const phrases=[
-    "You sure?",
-    "Almost ❤",
+    "You sure? ❤",
     "Think again",
-    "That’s not it",
-    "Try the other one"
+    "Almost there",
+    "Not that one",
+    "Try the other button"
   ]
 
   function moveNo(){
@@ -234,7 +257,7 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
   resize(); addEventListener("resize",resize)
   let p=[]
   function burst(){
-    for(let i=0;i<200;i++){
+    for(let i=0;i<220;i++){
       p.push({
         x:innerWidth/2,y:innerHeight*0.35,
         vx:(Math.random()-0.5)*10,
