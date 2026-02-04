@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Question From My Heart</title>
+<title>From My Heart</title>
 
 <style>
 :root{
@@ -32,7 +32,6 @@ body{
   overflow:hidden;
 }
 
-/* soft vignette */
 body::after{
   content:"";
   position:fixed;
@@ -42,17 +41,11 @@ body::after{
 }
 
 /* floating hearts */
-.bgFloat{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-}
+.bgFloat{ position:fixed; inset:0; pointer-events:none; }
 .floatItem{
   position:absolute;
-  font-size:18px;
-  opacity:0.18;
+  opacity:0.2;
   animation: floatUp linear infinite;
-  text-shadow:0 0 12px currentColor;
 }
 @keyframes floatUp{
   from{transform:translateY(110vh)}
@@ -63,132 +56,80 @@ body::after{
 .wrap{ width:min(92vw,560px); }
 
 .card{
-  padding:28px;
-  border-radius:24px;
+  padding:30px;
+  border-radius:26px;
   background: linear-gradient(180deg, rgba(24,18,60,0.96), rgba(12,8,34,0.96));
   box-shadow:
     0 0 0 2px rgba(178,141,255,0.35),
     0 0 50px rgba(178,141,255,0.35),
     inset 0 0 60px rgba(0,0,0,0.6);
+  text-align:center;
 }
-
-/* header */
-.top{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin-bottom:12px;
-}
-
-.icon{
-  width:64px;
-  height:64px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  background: linear-gradient(135deg, var(--lav), var(--rose));
-  box-shadow:0 0 24px var(--rose);
-}
-.icon span{ font-size:30px; }
 
 h1{
   margin:0;
   font-size:22px;
   font-weight:900;
-  text-shadow:0 0 12px var(--lav);
+  text-shadow:0 0 14px var(--lav);
 }
 
-/* text */
-.message{
-  margin-top:10px;
-  font-size:14px;
+p{
+  margin-top:14px;
+  font-size:15px;
   line-height:1.6;
-  color:#f0ecff;
 }
 
 .verse{
   margin-top:12px;
   font-size:13px;
   color:#d8d2ff;
-  opacity:0.9;
-}
-
-/* buttons */
-.actions{
-  margin-top:22px;
-  display:flex;
-  gap:14px;
-  justify-content:center;
 }
 
 button{
+  margin-top:22px;
   border:none;
   cursor:pointer;
   font-weight:900;
-  border-radius:14px;
-  padding:14px 26px;
+  border-radius:16px;
+  padding:14px 28px;
+  font-size:16px;
   transition:transform 120ms ease, box-shadow 120ms ease;
 }
 button:active{transform:scale(0.96)}
 
-.yes{
+.primary{
   background:linear-gradient(135deg, var(--gold), var(--rose));
   color:#2a0016;
   box-shadow:0 0 26px rgba(255,111,174,0.6);
   animation:pulse 2.2s infinite;
 }
+
 @keyframes pulse{
   0%{box-shadow:0 0 18px rgba(255,111,174,0.4)}
-  50%{box-shadow:0 0 36px rgba(255,111,174,0.75)}
+  50%{box-shadow:0 0 36px rgba(255,111,174,0.8)}
   100%{box-shadow:0 0 18px rgba(255,111,174,0.4)}
 }
 
-.no{
+.secondary{
   background:transparent;
   color:#cfc7ff;
   border:2px solid #8b7cff;
   box-shadow:0 0 14px rgba(139,124,255,0.45);
 }
 
-/* yes screen */
-.yesScreen{
-  display:none;
-  margin-top:18px;
-  padding:18px;
-  border-radius:18px;
-  background:linear-gradient(180deg,#1c144a,#0d082a);
-  box-shadow:0 0 34px rgba(255,111,174,0.5);
-  text-align:center;
-  animation:fadeUp 600ms ease forwards;
+/* hidden sections */
+.section{ display:none; }
+
+.final{
+  animation: fadeUp 600ms ease forwards;
 }
+
 @keyframes fadeUp{
   from{opacity:0; transform:translateY(10px)}
   to{opacity:1; transform:translateY(0)}
 }
 
-.yesTitle{
-  font-size:22px;
-  font-weight:1000;
-  color:var(--gold);
-  text-shadow:0 0 14px var(--gold);
-}
-
-.yesText{
-  margin-top:8px;
-  font-size:14px;
-}
-
-.sig{
-  margin-top:10px;
-  font-size:12px;
-  color:#d6ceff;
-}
-
-canvas{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-}
+canvas{ position:fixed; inset:0; pointer-events:none; }
 </style>
 </head>
 
@@ -200,27 +141,41 @@ canvas{
 <div class="wrap">
   <div class="card">
 
-    <div class="top">
-      <div class="icon"><span>❤</span></div>
-      <h1 id="title"></h1>
+    <!-- SECTION 1 -->
+    <div class="section" id="intro">
+      <p>
+        This isn’t about pressure or perfection.<br>
+        It’s about intention.<br>
+        You matter to me, and I wanted you to feel that clearly, gently, honestly.
+      </p>
+      <div class="verse">
+        <strong>1 Corinthians 13:7</strong><br>
+        Love bears all things, believes all things, hopes all things, endures all things.
+      </div>
+      <button class="primary" id="continueBtn">Continue</button>
     </div>
 
-    <div class="message" id="message"></div>
-
-    <div class="verse">
-      <strong>1 Corinthians 13:7</strong><br>
-      Love bears all things, believes all things, hopes all things, endures all things.
+    <!-- SECTION 2 -->
+    <div class="section" id="question">
+      <h1>Will you be my Valentine?</h1>
+      <div class="verse">
+        <strong>Proverbs 4:23</strong><br>
+        Above all else, guard your heart, for everything you do flows from it.
+      </div>
+      <button class="primary" id="yesBtn">Yes</button>
+      <button class="secondary" id="noBtn">No</button>
     </div>
 
-    <div class="actions">
-      <button class="yes" id="yesBtn">Yes</button>
-      <button class="no" id="noBtn">I need a moment</button>
-    </div>
-
-    <div class="yesScreen" id="yesScreen">
-      <div class="yesTitle">You are so loved ❤</div>
-      <div class="yesText" id="yesText"></div>
-      <div class="sig" id="sig"></div>
+    <!-- SECTION 3 -->
+    <div class="section final" id="final">
+      <h1>You are so loved ❤</h1>
+      <p>
+        Thank you for choosing love.<br>
+        I promise to lead with patience, faith, and intention.
+      </p>
+      <div class="verse">
+        — Isaiah | Ecclesiastes 4:12
+      </div>
     </div>
 
   </div>
@@ -232,49 +187,50 @@ canvas{
 
 <script>
 (() => {
-  const girlName="Lisa"
-  const yourName="Isaiah"
+  const intro=document.getElementById("intro")
+  const question=document.getElementById("question")
+  const final=document.getElementById("final")
+  const noBtn=document.getElementById("noBtn")
 
-  /* typewriter */
-  function type(el,text,speed){
-    let i=0; el.textContent=""
-    const t=setInterval(()=>{
-      el.textContent+=text[i]||""
-      i++; if(i>=text.length) clearInterval(t)
-    },speed)
+  intro.style.display="block"
+
+  continueBtn.onclick=()=>{
+    intro.style.display="none"
+    question.style.display="block"
   }
 
-  type(title, girlName + ", I wanted to ask you something", 55)
+  // playful force to yes
+  noBtn.onmouseenter=()=>{
+    noBtn.textContent="You know it’s Yes ❤"
+    noBtn.style.transform="scale(0.95)"
+  }
 
-  type(message,
-    "This isn’t about pressure or perfection. It’s about intention. " +
-    "You matter to me, and I wanted you to feel that — clearly, gently, honestly.",
-    22
-  )
+  noBtn.onclick=()=>{
+    noBtn.textContent="Okay okay… Yes"
+  }
 
-  /* floating hearts */
-  for(let i=0;i<30;i++){
+  // floating hearts
+  for(let i=0;i<26;i++){
     const e=document.createElement("div")
     e.className="floatItem"
     e.textContent="❤"
-    e.style.color=Math.random()>0.5?"#ff6fae":"#b28dff"
     e.style.left=Math.random()*100+"vw"
-    e.style.fontSize=14+Math.random()*20+"px"
-    e.style.animationDuration=12+Math.random()*14+"s"
+    e.style.fontSize=14+Math.random()*22+"px"
+    e.style.animationDuration=12+Math.random()*16+"s"
     bgFloat.appendChild(e)
   }
 
-  /* confetti */
+  // confetti
   const ctx=confetti.getContext("2d")
   const resize=()=>{confetti.width=innerWidth;confetti.height=innerHeight}
   resize(); addEventListener("resize",resize)
   let p=[]
   function burst(){
-    for(let i=0;i<160;i++){
+    for(let i=0;i<180;i++){
       p.push({
         x:innerWidth/2,y:innerHeight*0.35,
-        vx:(Math.random()-0.5)*9,
-        vy:-Math.random()*9,
+        vx:(Math.random()-0.5)*10,
+        vy:-Math.random()*10,
         a:1
       })
     }
@@ -294,20 +250,14 @@ canvas{
 
   yesBtn.onclick=()=>{
     burst(); burst()
-    yesScreen.style.display="block"
-    yesText.textContent=
-      "Thank you for choosing love. I promise to lead with patience, faith, and intention."
-    sig.textContent="— " + yourName + "  |  Ecclesiastes 4:12"
+    question.style.display="none"
+    final.style.display="block"
 
     const song=document.getElementById("song")
     song.volume=0; song.play()
     let v=0; const f=setInterval(()=>{
       v+=0.04; song.volume=v; if(v>=0.7) clearInterval(f)
     },120)
-  }
-
-  noBtn.onclick=()=>{
-    noBtn.textContent="That’s okay 💗"
   }
 })()
 </script>
