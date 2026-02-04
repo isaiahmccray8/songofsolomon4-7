@@ -7,12 +7,12 @@
 
 <style>
 :root{
-  --bg1:#4a0d23;
-  --bg2:#8b163c;
-  --rose:#ff6f9c;
-  --soft:#ffd1e1;
+  --bg1:#5a0f2e;
+  --bg2:#9e1f4a;
+  --rose:#ff7aa8;
+  --soft:#ffd6e6;
   --gold:#ffd36a;
-  --text:#fff4f8;
+  --text:#fff5f9;
 }
 
 *{box-sizing:border-box}
@@ -26,8 +26,8 @@ body{
   font-family:"Segoe UI", system-ui, sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at 20% 20%, #b01f4f, transparent 60%),
-    radial-gradient(circle at 80% 80%, #ff6f9c, transparent 65%),
+    radial-gradient(circle at 20% 20%, #c12b5a, transparent 60%),
+    radial-gradient(circle at 80% 80%, #ff7aa8, transparent 65%),
     linear-gradient(160deg, var(--bg1), var(--bg2));
   overflow:hidden;
 }
@@ -53,22 +53,22 @@ body::after{
 }
 
 /* card */
-.wrap{ width:min(92vw,560px); }
+.wrap{ width:min(92vw,580px); }
 
 .card{
-  padding:32px;
-  border-radius:28px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(14px);
+  padding:34px;
+  border-radius:30px;
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(16px);
   box-shadow:
-    0 0 0 2px rgba(255,111,156,0.35),
-    0 0 60px rgba(255,111,156,0.45);
+    0 0 0 2px rgba(255,122,168,0.35),
+    0 0 70px rgba(255,122,168,0.55);
   text-align:center;
 }
 
 h1{
   margin:0;
-  font-size:24px;
+  font-size:26px;
   font-weight:900;
   color:var(--soft);
 }
@@ -76,23 +76,28 @@ h1{
 p{
   margin-top:16px;
   font-size:15px;
-  line-height:1.6;
+  line-height:1.7;
+}
+
+.poem{
+  font-style:italic;
+  opacity:0.95;
 }
 
 .verse{
-  margin-top:12px;
+  margin-top:14px;
   font-size:13px;
   opacity:0.85;
 }
 
 /* buttons */
 button{
-  margin-top:24px;
+  margin-top:26px;
   border:none;
   cursor:pointer;
   font-weight:900;
   border-radius:18px;
-  padding:14px 32px;
+  padding:14px 34px;
   font-size:16px;
   transition:transform 120ms ease, box-shadow 120ms ease;
 }
@@ -101,32 +106,31 @@ button:active{transform:scale(0.96)}
 .primary{
   background:linear-gradient(135deg, var(--gold), var(--rose));
   color:#3a0016;
-  box-shadow:0 0 28px rgba(255,111,156,0.8);
+  box-shadow:0 0 30px rgba(255,122,168,0.9);
   animation:pulse 2.2s infinite;
 }
 
 @keyframes pulse{
-  0%{box-shadow:0 0 18px rgba(255,111,156,0.5)}
-  50%{box-shadow:0 0 36px rgba(255,111,156,1)}
-  100%{box-shadow:0 0 18px rgba(255,111,156,0.5)}
+  0%{box-shadow:0 0 18px rgba(255,122,168,0.6)}
+  50%{box-shadow:0 0 40px rgba(255,122,168,1)}
+  100%{box-shadow:0 0 18px rgba(255,122,168,0.6)}
 }
 
 .secondary{
   background:transparent;
   color:var(--soft);
-  border:2px solid rgba(255,209,225,0.8);
-  box-shadow:0 0 16px rgba(255,209,225,0.6);
+  border:2px solid rgba(255,214,230,0.85);
+  box-shadow:0 0 18px rgba(255,214,230,0.7);
 }
 
 /* sections */
 .section{ display:none; }
 
-.final{
+.fade{
   animation: fadeUp 600ms ease forwards;
 }
-
 @keyframes fadeUp{
-  from{opacity:0; transform:translateY(12px)}
+  from{opacity:0; transform:translateY(14px)}
   to{opacity:1; transform:translateY(0)}
 }
 
@@ -134,7 +138,7 @@ button:active{transform:scale(0.96)}
 .area{
   position:relative;
   height:150px;
-  margin-top:20px;
+  margin-top:22px;
 }
 
 .yesBtn{
@@ -145,7 +149,7 @@ button:active{transform:scale(0.96)}
 
 .noBtn{
   position:absolute;
-  left:240px;
+  left:260px;
   top:64px;
 }
 
@@ -162,23 +166,48 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
   <div class="card">
 
     <!-- INTRO -->
-    <div class="section" id="intro">
+    <div class="section fade" id="intro">
       <h1 id="nameTitle"></h1>
-      <p>
+
+      <p class="poem">
+        Love doesn’t rush.<br>
+        It listens before it speaks.<br>
+        It chooses intention over impulse,<br>
+        and meaning over moments.<br><br>
         This isn’t about pressure or perfection.<br>
-        It’s about intention.<br>
-        You matter to me, and I wanted you to feel that—clearly, gently, honestly.
+        It’s about care, honesty, and showing up gently.
       </p>
+
       <div class="verse">
         <strong>1 Corinthians 13:7</strong><br>
-        Love bears all things, believes all things, hopes all things, endures all things.
+        Love bears all things, believes all things,<br>
+        hopes all things, endures all things.
       </div>
-      <button class="primary" id="continueBtn">Continue</button>
+
+      <button class="primary" id="toQuestion1">Continue</button>
     </div>
 
-    <!-- QUESTION -->
-    <div class="section" id="question">
+    <!-- QUESTION 1 -->
+    <div class="section fade" id="question1">
+      <h1>A question from the heart</h1>
+      <p>
+        Do you believe love is something that’s chosen<br>
+        every day — with patience, faith, and care?
+      </p>
+
+      <div class="verse">
+        <strong>Proverbs 16:3</strong><br>
+        Commit your work to the Lord,<br>
+        and your plans will be established.
+      </div>
+
+      <button class="primary" id="toValentine">Continue</button>
+    </div>
+
+    <!-- VALENTINE -->
+    <div class="section fade" id="valentine">
       <h1>Will you be my Valentine?</h1>
+
       <div class="area" id="area">
         <button class="primary yesBtn" id="yesBtn">Yes</button>
         <button class="secondary noBtn" id="noBtn">No</button>
@@ -186,12 +215,14 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
     </div>
 
     <!-- FINAL -->
-    <div class="section final" id="final">
+    <div class="section fade" id="final">
       <h1>You are so loved ❤</h1>
       <p>
         Thank you for choosing love.<br>
-        I promise to lead with patience, faith, and intention.
+        I promise to lead with patience,<br>
+        faith, and intention.
       </p>
+
       <div class="verse">
         — Isaiah | Ecclesiastes 4:12
       </div>
@@ -200,30 +231,25 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
   </div>
 </div>
 
-<audio id="song">
-  <source src="song.mp3" type="audio/mpeg">
-</audio>
-
 <script>
 (() => {
-  const herName = "Lisa"   // ← change name here
-  document.getElementById("nameTitle").textContent = herName
-
-  const intro = document.getElementById("intro")
-  const question = document.getElementById("question")
-  const final = document.getElementById("final")
-  const noBtn = document.getElementById("noBtn")
-  const area = document.getElementById("area")
+  const herName="Lisa"   // change name here
+  nameTitle.textContent=herName
 
   intro.style.display="block"
 
-  continueBtn.onclick=()=>{
+  toQuestion1.onclick=()=>{
     intro.style.display="none"
-    question.style.display="block"
+    question1.style.display="block"
   }
 
-  /* playful NO behavior */
-  const phrases = [
+  toValentine.onclick=()=>{
+    question1.style.display="none"
+    valentine.style.display="block"
+  }
+
+  /* NO button playful dodge */
+  const phrases=[
     "You sure?",
     "Think again ❤",
     "Almost chose love",
@@ -232,17 +258,17 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
   ]
 
   function moveNo(){
-    const r = area.getBoundingClientRect()
-    noBtn.style.left = Math.random()*(r.width-120)+"px"
-    noBtn.style.top = Math.random()*(r.height-50)+"px"
-    noBtn.textContent = phrases[Math.floor(Math.random()*phrases.length)]
+    const r=area.getBoundingClientRect()
+    noBtn.style.left=Math.random()*(r.width-120)+"px"
+    noBtn.style.top=Math.random()*(r.height-50)+"px"
+    noBtn.textContent=phrases[Math.floor(Math.random()*phrases.length)]
   }
 
-  noBtn.onmouseenter = moveNo
-  noBtn.onclick = moveNo
+  noBtn.onmouseenter=moveNo
+  noBtn.onclick=moveNo
 
   /* floating hearts */
-  for(let i=0;i<28;i++){
+  for(let i=0;i<30;i++){
     const e=document.createElement("div")
     e.className="floatItem"
     e.textContent="❤"
@@ -258,7 +284,7 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
   resize(); addEventListener("resize",resize)
   let p=[]
   function burst(){
-    for(let i=0;i<200;i++){
+    for(let i=0;i<220;i++){
       p.push({
         x:innerWidth/2,y:innerHeight*0.35,
         vx:(Math.random()-0.5)*10,
@@ -272,7 +298,7 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
     p.forEach(o=>{
       o.x+=o.vx; o.y+=o.vy; o.vy+=0.18; o.a-=0.01
       ctx.globalAlpha=o.a
-      ctx.fillStyle="#ffd1e1"
+      ctx.fillStyle="#ffd6e6"
       ctx.fillRect(o.x,o.y,4,4)
     })
     p=p.filter(o=>o.a>0)
@@ -282,14 +308,8 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
 
   yesBtn.onclick=()=>{
     burst(); burst()
-    question.style.display="none"
+    valentine.style.display="none"
     final.style.display="block"
-
-    const song=document.getElementById("song")
-    song.volume=0; song.play()
-    let v=0; const f=setInterval(()=>{
-      v+=0.04; song.volume=v; if(v>=0.7) clearInterval(f)
-    },120)
   }
 })()
 </script>
