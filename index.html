@@ -3,14 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Be My Valentine</title>
+<title>Valentine Quest</title>
 
 <style>
+/* ===== GAME PALETTE ===== */
 :root{
-  --pink1:#ffd1e6;
-  --pink2:#ff9fd0;
-  --pink3:#ff5fb0;
-  --ink:#3b0a24;
+  --bg1:#0b0f1a;
+  --bg2:#120a24;
+  --neonPink:#ff3fd8;
+  --neonBlue:#4df3ff;
+  --neonPurple:#9d6bff;
+  --gold:#ffd36a;
+  --text:#eaeaff;
 }
 
 *{box-sizing:border-box}
@@ -21,24 +25,42 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-  color:var(--ink);
-  overflow:hidden;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color:var(--text);
   background:
-    radial-gradient(circle at 15% 20%, #ffe6f2 0%, rgba(255,230,242,0) 55%),
-    radial-gradient(circle at 80% 25%, #ffd0ea 0%, rgba(255,208,234,0) 55%),
-    radial-gradient(circle at 50% 80%, #ffb3db 0%, rgba(255,179,219,0) 60%),
-    linear-gradient(135deg, var(--pink1), var(--pink2));
+    radial-gradient(circle at 20% 20%, #1c1440, transparent 60%),
+    radial-gradient(circle at 80% 80%, #240d3f, transparent 65%),
+    linear-gradient(160deg, var(--bg1), var(--bg2));
+  overflow:hidden;
 }
 
+/* CRT Scanlines */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.03) 0px,
+      rgba(255,255,255,0.03) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+  mix-blend-mode:overlay;
+}
+
+/* Glow vignette */
 body::after{
   content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
-  background: radial-gradient(circle at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.18));
+  background: radial-gradient(circle at center, transparent 55%, rgba(0,0,0,0.6));
 }
 
+/* Floating particles */
 .bgFloat{
   position:fixed;
   inset:0;
@@ -47,59 +69,49 @@ body::after{
 
 .floatItem{
   position:absolute;
-  animation: drift linear infinite;
-  user-select:none;
+  font-size:18px;
+  opacity:0.18;
+  animation: floatUp linear infinite;
+  text-shadow: 0 0 12px currentColor;
 }
 
-@keyframes drift{
-  from{ transform: translateY(110vh) rotate(0deg) }
-  to{ transform: translateY(-20vh) rotate(20deg) }
+@keyframes floatUp{
+  from{transform:translateY(110vh)}
+  to{transform:translateY(-20vh)}
 }
 
+/* ===== CARD ===== */
 .wrap{
-  width:min(92vw, 560px);
-  padding:18px;
+  width:min(92vw,560px);
 }
 
 .card{
   position:relative;
-  border-radius:28px;
-  padding:26px 22px;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 22px 80px rgba(0,0,0,0.22);
-  transition: transform 300ms ease, box-shadow 300ms ease;
+  padding:26px;
+  border-radius:22px;
+  background: linear-gradient(180deg, rgba(20,18,50,0.95), rgba(10,8,30,0.95));
+  box-shadow:
+    0 0 0 2px rgba(157,107,255,0.4),
+    0 0 40px rgba(157,107,255,0.35),
+    inset 0 0 60px rgba(0,0,0,0.6);
 }
 
-.card:hover{
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 30px 95px rgba(0,0,0,0.28);
-}
-
-.shine{
-  position:absolute;
-  inset:-2px;
-  background:
-    radial-gradient(circle at 70% 20%, rgba(255,95,176,0.28), transparent 55%),
-    radial-gradient(circle at 20% 80%, rgba(255,160,208,0.22), transparent 55%);
-  pointer-events:none;
-}
-
+/* HUD header */
 .top{
   display:flex;
   align-items:center;
-  justify-content:center;
   gap:12px;
+  margin-bottom:10px;
 }
 
 .icon{
-  width:70px;
-  height:70px;
-  border-radius:22px;
+  width:64px;
+  height:64px;
+  border-radius:12px;
   display:grid;
   place-items:center;
-  background: linear-gradient(135deg, #ff5fb0, #ffd6ea);
-  box-shadow: 0 16px 30px rgba(255,70,150,0.25);
+  background: linear-gradient(135deg, var(--neonPurple), var(--neonPink));
+  box-shadow: 0 0 22px var(--neonPink);
 }
 
 .icon span{
@@ -109,110 +121,122 @@ body::after{
 
 h1{
   margin:0;
-  font-size:24px;
+  font-size:22px;
   font-weight:900;
-  text-align:center;
+  text-shadow: 0 0 12px var(--neonPurple);
 }
 
+/* Text blocks */
 .verse{
-  margin-top:12px;
-  text-align:center;
+  margin-top:10px;
   font-size:13px;
-  opacity:0.85;
+  color:#dcd7ff;
 }
 
 .softNote{
-  margin-top:10px;
-  text-align:center;
+  margin-top:8px;
   font-size:12px;
-  opacity:0.65;
+  color:#a9a3ff;
 }
 
+/* ===== GAME AREA ===== */
 .area{
-  margin-top:18px;
   position:relative;
-  height:150px;
+  height:160px;
+  margin-top:18px;
+  border:1px dashed rgba(77,243,255,0.3);
+  border-radius:14px;
 }
 
+/* Buttons */
 .btn{
-  border:0;
+  border:none;
   cursor:pointer;
   font-weight:900;
-  border-radius:18px;
-  transition: transform 120ms ease;
+  letter-spacing:0.5px;
+  border-radius:12px;
+  transition: transform 120ms ease, box-shadow 120ms ease;
 }
 
-.btn:active{ transform: scale(0.97) }
+.btn:active{ transform: scale(0.95) }
 
-@keyframes pulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.05)}
-  100%{transform:scale(1)}
+/* YES button */
+@keyframes glowPulse{
+  0%{box-shadow:0 0 12px var(--neonPink)}
+  50%{box-shadow:0 0 32px var(--neonPink)}
+  100%{box-shadow:0 0 12px var(--neonPink)}
 }
 
 .yes{
+  position:absolute;
+  left:20px;
+  top:60px;
   width:170px;
-  height:58px;
+  height:56px;
   font-size:18px;
-  color:white;
-  background: linear-gradient(135deg, #ff4f9a, #ff9ad5);
-  box-shadow: 0 18px 32px rgba(255,60,140,0.35);
-  position:absolute;
-  left:22px;
-  top:56px;
-  animation: pulse 2.2s infinite;
+  color:#0b0016;
+  background: linear-gradient(135deg, var(--gold), var(--neonPink));
+  animation: glowPulse 2s infinite;
 }
 
+/* NO button */
 .no{
-  width:125px;
-  height:50px;
-  font-size:14px;
-  background:white;
-  border:2px solid rgba(255,100,170,0.45);
   position:absolute;
-  left:235px;
-  top:62px;
+  left:240px;
+  top:64px;
+  width:120px;
+  height:48px;
+  font-size:14px;
+  color:var(--neonBlue);
+  background: transparent;
+  border:2px solid var(--neonBlue);
+  box-shadow: 0 0 12px rgba(77,243,255,0.5);
 }
 
+/* HUD text */
 .tiny{
   position:absolute;
-  bottom:10px;
+  bottom:8px;
   width:100%;
   text-align:center;
   font-size:12px;
-  opacity:0.6;
+  color:#8cf6ff;
 }
 
+/* YES SCREEN */
 .yesScreen{
   display:none;
   margin-top:16px;
   padding:16px;
-  border-radius:18px;
-  background:#ffe6f2;
+  border-radius:16px;
+  background: linear-gradient(180deg, #1a1244, #0d082a);
+  box-shadow: 0 0 30px rgba(255,63,216,0.45);
   text-align:center;
-  animation: fadeUp 600ms ease forwards;
+  animation: unlock 600ms ease forwards;
 }
 
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(10px)}
-  to{opacity:1; transform:translateY(0)}
+@keyframes unlock{
+  from{opacity:0; transform:scale(0.95)}
+  to{opacity:1; transform:scale(1)}
 }
 
 .yesTitle{
   font-size:22px;
   font-weight:1000;
+  color:var(--gold);
+  text-shadow:0 0 14px var(--gold);
 }
 
 .yesText{
   margin-top:8px;
   font-size:14px;
+  color:#f2eeff;
 }
 
 .sig{
   margin-top:10px;
   font-size:12px;
-  font-weight:900;
-  opacity:0.75;
+  color:#cfc8ff;
 }
 
 canvas{
@@ -230,7 +254,6 @@ canvas{
 
 <div class="wrap">
   <div class="card">
-    <div class="shine"></div>
 
     <div class="top">
       <div class="icon"><span>✝</span></div>
@@ -241,16 +264,17 @@ canvas{
     <div class="softNote" id="note"></div>
 
     <div class="area" id="area">
-      <button class="btn yes" id="yesBtn">Yes</button>
-      <button class="btn no" id="noBtn">No</button>
-      <div class="tiny" id="tiny">No is feeling shy today</div>
+      <button class="btn yes" id="yesBtn">ACCEPT QUEST</button>
+      <button class="btn no" id="noBtn">DECLINE</button>
+      <div class="tiny" id="tiny">Objective: choose wisely</div>
     </div>
 
     <div class="yesScreen" id="yesScreen">
-      <div class="yesTitle">She said YES ❤</div>
+      <div class="yesTitle">QUEST ACCEPTED ❤</div>
       <div class="yesText" id="yesText"></div>
       <div class="sig" id="sig"></div>
     </div>
+
   </div>
 </div>
 
@@ -260,85 +284,79 @@ canvas{
 
 <script>
 (() => {
-  const girlName = "Lisa"
-  const yourName = "Isaiah"
+  const girlName="Lisa"
+  const yourName="Isaiah"
 
-  document.getElementById("title").textContent =
-    girlName + ", will you be my Valentine"
+  title.textContent = girlName + " — Valentine Quest"
+  verse.innerHTML = "<strong>1 Corinthians 13:7</strong><br>Love bears all things, believes all things, hopes all things, endures all things."
+  note.textContent = "Player choice matters. Pray before selecting."
 
-  document.getElementById("verse").innerHTML =
-    "<strong>1 Corinthians 13:7</strong><br>Love bears all things, believes all things, hopes all things, endures all things."
-
-  document.getElementById("note").textContent =
-    "Pick the one God is leading you to, I mean it"
-
-  const noBtn = document.getElementById("noBtn")
-  const area = document.getElementById("area")
-  const tiny = document.getElementById("tiny")
-
-  const phrases = ["nice try 😌","still shy","almost","choose love","not yet"]
+  /* NO button dodge */
+  const phrases=[
+    "target locked ❌",
+    "nice try",
+    "not today",
+    "rerouting...",
+    "system override"
+  ]
 
   function moveNo(){
-    const r = area.getBoundingClientRect()
-    noBtn.style.left = Math.random()*(r.width-140)+"px"
-    noBtn.style.top = Math.random()*(r.height-70)+"px"
-    tiny.textContent = phrases[Math.floor(Math.random()*phrases.length)]
+    const r=area.getBoundingClientRect()
+    noBtn.style.left=Math.random()*(r.width-140)+"px"
+    noBtn.style.top=Math.random()*(r.height-70)+"px"
+    tiny.textContent=phrases[Math.floor(Math.random()*phrases.length)]
   }
+  noBtn.onmouseenter=moveNo
+  noBtn.onclick=moveNo
 
-  noBtn.onmouseenter = moveNo
-  noBtn.onclick = moveNo
-
-  // floating icons
-  const bg = document.getElementById("bgFloat")
-  for(let i=0;i<30;i++){
+  /* Floating icons */
+  for(let i=0;i<32;i++){
     const e=document.createElement("div")
     e.className="floatItem"
-    e.textContent=Math.random()>0.7?"✝":"❤"
+    e.textContent=Math.random()>0.6?"❤":"✝"
+    e.style.color=Math.random()>0.5?"#ff3fd8":"#4df3ff"
     e.style.left=Math.random()*100+"vw"
-    e.style.fontSize=14+Math.random()*22+"px"
-    e.style.opacity=0.12+Math.random()*0.18
+    e.style.fontSize=14+Math.random()*20+"px"
     e.style.animationDuration=10+Math.random()*12+"s"
-    bg.appendChild(e)
+    bgFloat.appendChild(e)
   }
 
-  // confetti
-  const canvas=document.getElementById("confetti")
-  const ctx=canvas.getContext("2d")
-  const resize=()=>{canvas.width=innerWidth;canvas.height=innerHeight}
+  /* Confetti */
+  const ctx=confetti.getContext("2d")
+  const resize=()=>{confetti.width=innerWidth;confetti.height=innerHeight}
   resize(); addEventListener("resize",resize)
+  let p=[]
 
-  let parts=[]
   function burst(){
-    for(let i=0;i<140;i++){
-      parts.push({
+    for(let i=0;i<160;i++){
+      p.push({
         x:innerWidth/2,y:innerHeight*0.3,
-        vx:(Math.random()-0.5)*8,
-        vy:-Math.random()*8,
+        vx:(Math.random()-0.5)*9,
+        vy:-Math.random()*9,
         a:1
       })
     }
   }
 
   function tick(){
-    ctx.clearRect(0,0,canvas.width,canvas.height)
-    parts.forEach(p=>{
-      p.x+=p.vx; p.y+=p.vy; p.vy+=0.15; p.a-=0.01
-      ctx.globalAlpha=p.a
-      ctx.fillStyle="#ff5fb0"
-      ctx.beginPath(); ctx.arc(p.x,p.y,4,0,Math.PI*2); ctx.fill()
+    ctx.clearRect(0,0,confetti.width,confetti.height)
+    p.forEach(o=>{
+      o.x+=o.vx; o.y+=o.vy; o.vy+=0.18; o.a-=0.01
+      ctx.globalAlpha=o.a
+      ctx.fillStyle="#ffd36a"
+      ctx.fillRect(o.x,o.y,4,4)
     })
-    parts=parts.filter(p=>p.a>0)
+    p=p.filter(o=>o.a>0)
     requestAnimationFrame(tick)
   }
   tick()
 
-  document.getElementById("yesBtn").onclick=()=>{
+  yesBtn.onclick=()=>{
     burst(); burst()
-    document.getElementById("yesScreen").style.display="block"
-    document.getElementById("yesText").textContent=
-      "I’m grateful for you. Jesus at the center, always. Thank you for choosing me."
-    document.getElementById("sig").textContent=
-      "Ecclesiastes 4:12 — " + yourName
+    yesScreen.style.display="block"
+    yesText.textContent=
+      "You chose love. Jesus at the center, always. I choose you too."
+    sig.textContent="Ecclesiastes 4:12 — " + yourName
 
     const song=document.getElementById("song")
     song.volume=0; song.play()
