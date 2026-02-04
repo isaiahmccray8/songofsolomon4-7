@@ -7,12 +7,12 @@
 
 <style>
 :root{
-  --bg1:#0b0f1a;
-  --bg2:#160a2e;
-  --rose:#ff6fae;
-  --lav:#b28dff;
+  --bg1:#4a0d23;
+  --bg2:#8b163c;
+  --rose:#ff6f9c;
+  --soft:#ffd1e1;
   --gold:#ffd36a;
-  --text:#f3f1ff;
+  --text:#fff4f8;
 }
 
 *{box-sizing:border-box}
@@ -26,8 +26,8 @@ body{
   font-family:"Segoe UI", system-ui, sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at 20% 20%, #2a1458, transparent 60%),
-    radial-gradient(circle at 80% 80%, #3a0f2f, transparent 65%),
+    radial-gradient(circle at 20% 20%, #b01f4f, transparent 60%),
+    radial-gradient(circle at 80% 80%, #ff6f9c, transparent 65%),
     linear-gradient(160deg, var(--bg1), var(--bg2));
   overflow:hidden;
 }
@@ -37,14 +37,14 @@ body::after{
   position:fixed;
   inset:0;
   pointer-events:none;
-  background: radial-gradient(circle at center, transparent 55%, rgba(0,0,0,0.45));
+  background: radial-gradient(circle at center, transparent 55%, rgba(0,0,0,0.35));
 }
 
 /* floating hearts */
 .bgFloat{ position:fixed; inset:0; pointer-events:none; }
 .floatItem{
   position:absolute;
-  opacity:0.2;
+  opacity:0.25;
   animation: floatUp linear infinite;
 }
 @keyframes floatUp{
@@ -56,25 +56,25 @@ body::after{
 .wrap{ width:min(92vw,560px); }
 
 .card{
-  padding:30px;
-  border-radius:26px;
-  background: linear-gradient(180deg, rgba(24,18,60,0.96), rgba(12,8,34,0.96));
+  padding:32px;
+  border-radius:28px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(14px);
   box-shadow:
-    0 0 0 2px rgba(178,141,255,0.35),
-    0 0 50px rgba(178,141,255,0.35),
-    inset 0 0 60px rgba(0,0,0,0.6);
+    0 0 0 2px rgba(255,111,156,0.35),
+    0 0 60px rgba(255,111,156,0.45);
   text-align:center;
 }
 
 h1{
   margin:0;
-  font-size:22px;
+  font-size:24px;
   font-weight:900;
-  text-shadow:0 0 14px var(--lav);
+  color:var(--soft);
 }
 
 p{
-  margin-top:14px;
+  margin-top:16px;
   font-size:15px;
   line-height:1.6;
 }
@@ -82,16 +82,17 @@ p{
 .verse{
   margin-top:12px;
   font-size:13px;
-  color:#d8d2ff;
+  opacity:0.85;
 }
 
+/* buttons */
 button{
-  margin-top:22px;
+  margin-top:24px;
   border:none;
   cursor:pointer;
   font-weight:900;
-  border-radius:16px;
-  padding:14px 28px;
+  border-radius:18px;
+  padding:14px 32px;
   font-size:16px;
   transition:transform 120ms ease, box-shadow 120ms ease;
 }
@@ -99,25 +100,25 @@ button:active{transform:scale(0.96)}
 
 .primary{
   background:linear-gradient(135deg, var(--gold), var(--rose));
-  color:#2a0016;
-  box-shadow:0 0 26px rgba(255,111,174,0.6);
+  color:#3a0016;
+  box-shadow:0 0 28px rgba(255,111,156,0.8);
   animation:pulse 2.2s infinite;
 }
 
 @keyframes pulse{
-  0%{box-shadow:0 0 18px rgba(255,111,174,0.4)}
-  50%{box-shadow:0 0 36px rgba(255,111,174,0.8)}
-  100%{box-shadow:0 0 18px rgba(255,111,174,0.4)}
+  0%{box-shadow:0 0 18px rgba(255,111,156,0.5)}
+  50%{box-shadow:0 0 36px rgba(255,111,156,1)}
+  100%{box-shadow:0 0 18px rgba(255,111,156,0.5)}
 }
 
 .secondary{
   background:transparent;
-  color:#cfc7ff;
-  border:2px solid #8b7cff;
-  box-shadow:0 0 14px rgba(139,124,255,0.45);
+  color:var(--soft);
+  border:2px solid rgba(255,209,225,0.8);
+  box-shadow:0 0 16px rgba(255,209,225,0.6);
 }
 
-/* hidden sections */
+/* sections */
 .section{ display:none; }
 
 .final{
@@ -125,8 +126,27 @@ button:active{transform:scale(0.96)}
 }
 
 @keyframes fadeUp{
-  from{opacity:0; transform:translateY(10px)}
+  from{opacity:0; transform:translateY(12px)}
   to{opacity:1; transform:translateY(0)}
+}
+
+/* question area */
+.area{
+  position:relative;
+  height:150px;
+  margin-top:20px;
+}
+
+.yesBtn{
+  position:absolute;
+  left:40px;
+  top:60px;
+}
+
+.noBtn{
+  position:absolute;
+  left:240px;
+  top:64px;
 }
 
 canvas{ position:fixed; inset:0; pointer-events:none; }
@@ -141,12 +161,13 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
 <div class="wrap">
   <div class="card">
 
-    <!-- SECTION 1 -->
+    <!-- INTRO -->
     <div class="section" id="intro">
+      <h1 id="nameTitle"></h1>
       <p>
         This isn’t about pressure or perfection.<br>
         It’s about intention.<br>
-        You matter to me, and I wanted you to feel that clearly, gently, honestly.
+        You matter to me, and I wanted you to feel that—clearly, gently, honestly.
       </p>
       <div class="verse">
         <strong>1 Corinthians 13:7</strong><br>
@@ -155,18 +176,16 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
       <button class="primary" id="continueBtn">Continue</button>
     </div>
 
-    <!-- SECTION 2 -->
+    <!-- QUESTION -->
     <div class="section" id="question">
       <h1>Will you be my Valentine?</h1>
-      <div class="verse">
-        <strong>Proverbs 4:23</strong><br>
-        Above all else, guard your heart, for everything you do flows from it.
+      <div class="area" id="area">
+        <button class="primary yesBtn" id="yesBtn">Yes</button>
+        <button class="secondary noBtn" id="noBtn">No</button>
       </div>
-      <button class="primary" id="yesBtn">Yes</button>
-      <button class="secondary" id="noBtn">No</button>
     </div>
 
-    <!-- SECTION 3 -->
+    <!-- FINAL -->
     <div class="section final" id="final">
       <h1>You are so loved ❤</h1>
       <p>
@@ -187,10 +206,14 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
 
 <script>
 (() => {
-  const intro=document.getElementById("intro")
-  const question=document.getElementById("question")
-  const final=document.getElementById("final")
-  const noBtn=document.getElementById("noBtn")
+  const herName = "Lisa"   // ← change name here
+  document.getElementById("nameTitle").textContent = herName
+
+  const intro = document.getElementById("intro")
+  const question = document.getElementById("question")
+  const final = document.getElementById("final")
+  const noBtn = document.getElementById("noBtn")
+  const area = document.getElementById("area")
 
   intro.style.display="block"
 
@@ -199,34 +222,43 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
     question.style.display="block"
   }
 
-  // playful force to yes
-  noBtn.onmouseenter=()=>{
-    noBtn.textContent="You know it’s Yes ❤"
-    noBtn.style.transform="scale(0.95)"
+  /* playful NO behavior */
+  const phrases = [
+    "You sure?",
+    "Think again ❤",
+    "Almost chose love",
+    "That’s not it 😌",
+    "Try the other one"
+  ]
+
+  function moveNo(){
+    const r = area.getBoundingClientRect()
+    noBtn.style.left = Math.random()*(r.width-120)+"px"
+    noBtn.style.top = Math.random()*(r.height-50)+"px"
+    noBtn.textContent = phrases[Math.floor(Math.random()*phrases.length)]
   }
 
-  noBtn.onclick=()=>{
-    noBtn.textContent="Okay okay… Yes"
-  }
+  noBtn.onmouseenter = moveNo
+  noBtn.onclick = moveNo
 
-  // floating hearts
-  for(let i=0;i<26;i++){
+  /* floating hearts */
+  for(let i=0;i<28;i++){
     const e=document.createElement("div")
     e.className="floatItem"
     e.textContent="❤"
     e.style.left=Math.random()*100+"vw"
     e.style.fontSize=14+Math.random()*22+"px"
-    e.style.animationDuration=12+Math.random()*16+"s"
+    e.style.animationDuration=12+Math.random()*18+"s"
     bgFloat.appendChild(e)
   }
 
-  // confetti
+  /* confetti */
   const ctx=confetti.getContext("2d")
   const resize=()=>{confetti.width=innerWidth;confetti.height=innerHeight}
   resize(); addEventListener("resize",resize)
   let p=[]
   function burst(){
-    for(let i=0;i<180;i++){
+    for(let i=0;i<200;i++){
       p.push({
         x:innerWidth/2,y:innerHeight*0.35,
         vx:(Math.random()-0.5)*10,
@@ -240,7 +272,7 @@ canvas{ position:fixed; inset:0; pointer-events:none; }
     p.forEach(o=>{
       o.x+=o.vx; o.y+=o.vy; o.vy+=0.18; o.a-=0.01
       ctx.globalAlpha=o.a
-      ctx.fillStyle="#ffd36a"
+      ctx.fillStyle="#ffd1e1"
       ctx.fillRect(o.x,o.y,4,4)
     })
     p=p.filter(o=>o.a>0)
