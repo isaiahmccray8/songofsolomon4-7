@@ -3,18 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Valentine Quest</title>
+<title>A Question From My Heart</title>
 
 <style>
-/* ===== GAME PALETTE ===== */
 :root{
   --bg1:#0b0f1a;
-  --bg2:#120a24;
-  --neonPink:#ff3fd8;
-  --neonBlue:#4df3ff;
-  --neonPurple:#9d6bff;
+  --bg2:#160a2e;
+  --rose:#ff6fae;
+  --lav:#b28dff;
   --gold:#ffd36a;
-  --text:#eaeaff;
+  --text:#f3f1ff;
 }
 
 *{box-sizing:border-box}
@@ -25,199 +23,147 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  font-family: "Segoe UI", system-ui, sans-serif;
+  font-family:"Segoe UI", system-ui, sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at 20% 20%, #1c1440, transparent 60%),
-    radial-gradient(circle at 80% 80%, #240d3f, transparent 65%),
+    radial-gradient(circle at 20% 20%, #2a1458, transparent 60%),
+    radial-gradient(circle at 80% 80%, #3a0f2f, transparent 65%),
     linear-gradient(160deg, var(--bg1), var(--bg2));
   overflow:hidden;
 }
 
-/* CRT Scanlines */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.03) 0px,
-      rgba(255,255,255,0.03) 1px,
-      transparent 2px,
-      transparent 4px
-    );
-  mix-blend-mode:overlay;
-}
-
-/* Glow vignette */
+/* soft vignette */
 body::after{
   content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
-  background: radial-gradient(circle at center, transparent 55%, rgba(0,0,0,0.6));
+  background: radial-gradient(circle at center, transparent 55%, rgba(0,0,0,0.45));
 }
 
-/* Floating particles */
+/* floating hearts */
 .bgFloat{
   position:fixed;
   inset:0;
   pointer-events:none;
 }
-
 .floatItem{
   position:absolute;
   font-size:18px;
   opacity:0.18;
   animation: floatUp linear infinite;
-  text-shadow: 0 0 12px currentColor;
+  text-shadow:0 0 12px currentColor;
 }
-
 @keyframes floatUp{
   from{transform:translateY(110vh)}
   to{transform:translateY(-20vh)}
 }
 
-/* ===== CARD ===== */
-.wrap{
-  width:min(92vw,560px);
-}
+/* card */
+.wrap{ width:min(92vw,560px); }
 
 .card{
-  position:relative;
-  padding:26px;
-  border-radius:22px;
-  background: linear-gradient(180deg, rgba(20,18,50,0.95), rgba(10,8,30,0.95));
+  padding:28px;
+  border-radius:24px;
+  background: linear-gradient(180deg, rgba(24,18,60,0.96), rgba(12,8,34,0.96));
   box-shadow:
-    0 0 0 2px rgba(157,107,255,0.4),
-    0 0 40px rgba(157,107,255,0.35),
+    0 0 0 2px rgba(178,141,255,0.35),
+    0 0 50px rgba(178,141,255,0.35),
     inset 0 0 60px rgba(0,0,0,0.6);
 }
 
-/* HUD header */
+/* header */
 .top{
   display:flex;
   align-items:center;
-  gap:12px;
-  margin-bottom:10px;
+  gap:14px;
+  margin-bottom:12px;
 }
 
 .icon{
   width:64px;
   height:64px;
-  border-radius:12px;
+  border-radius:14px;
   display:grid;
   place-items:center;
-  background: linear-gradient(135deg, var(--neonPurple), var(--neonPink));
-  box-shadow: 0 0 22px var(--neonPink);
+  background: linear-gradient(135deg, var(--lav), var(--rose));
+  box-shadow:0 0 24px var(--rose);
 }
-
-.icon span{
-  font-size:30px;
-  color:white;
-}
+.icon span{ font-size:30px; }
 
 h1{
   margin:0;
   font-size:22px;
   font-weight:900;
-  text-shadow: 0 0 12px var(--neonPurple);
+  text-shadow:0 0 12px var(--lav);
 }
 
-/* Text blocks */
-.verse{
+/* text */
+.message{
   margin-top:10px;
+  font-size:14px;
+  line-height:1.6;
+  color:#f0ecff;
+}
+
+.verse{
+  margin-top:12px;
   font-size:13px;
-  color:#dcd7ff;
+  color:#d8d2ff;
+  opacity:0.9;
 }
 
-.softNote{
-  margin-top:8px;
-  font-size:12px;
-  color:#a9a3ff;
+/* buttons */
+.actions{
+  margin-top:22px;
+  display:flex;
+  gap:14px;
+  justify-content:center;
 }
 
-/* ===== GAME AREA ===== */
-.area{
-  position:relative;
-  height:160px;
-  margin-top:18px;
-  border:1px dashed rgba(77,243,255,0.3);
-  border-radius:14px;
-}
-
-/* Buttons */
-.btn{
+button{
   border:none;
   cursor:pointer;
   font-weight:900;
-  letter-spacing:0.5px;
-  border-radius:12px;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  border-radius:14px;
+  padding:14px 26px;
+  transition:transform 120ms ease, box-shadow 120ms ease;
 }
-
-.btn:active{ transform: scale(0.95) }
-
-/* YES button */
-@keyframes glowPulse{
-  0%{box-shadow:0 0 12px var(--neonPink)}
-  50%{box-shadow:0 0 32px var(--neonPink)}
-  100%{box-shadow:0 0 12px var(--neonPink)}
-}
+button:active{transform:scale(0.96)}
 
 .yes{
-  position:absolute;
-  left:20px;
-  top:60px;
-  width:170px;
-  height:56px;
-  font-size:18px;
-  color:#0b0016;
-  background: linear-gradient(135deg, var(--gold), var(--neonPink));
-  animation: glowPulse 2s infinite;
+  background:linear-gradient(135deg, var(--gold), var(--rose));
+  color:#2a0016;
+  box-shadow:0 0 26px rgba(255,111,174,0.6);
+  animation:pulse 2.2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 18px rgba(255,111,174,0.4)}
+  50%{box-shadow:0 0 36px rgba(255,111,174,0.75)}
+  100%{box-shadow:0 0 18px rgba(255,111,174,0.4)}
 }
 
-/* NO button */
 .no{
-  position:absolute;
-  left:240px;
-  top:64px;
-  width:120px;
-  height:48px;
-  font-size:14px;
-  color:var(--neonBlue);
-  background: transparent;
-  border:2px solid var(--neonBlue);
-  box-shadow: 0 0 12px rgba(77,243,255,0.5);
+  background:transparent;
+  color:#cfc7ff;
+  border:2px solid #8b7cff;
+  box-shadow:0 0 14px rgba(139,124,255,0.45);
 }
 
-/* HUD text */
-.tiny{
-  position:absolute;
-  bottom:8px;
-  width:100%;
-  text-align:center;
-  font-size:12px;
-  color:#8cf6ff;
-}
-
-/* YES SCREEN */
+/* yes screen */
 .yesScreen{
   display:none;
-  margin-top:16px;
-  padding:16px;
-  border-radius:16px;
-  background: linear-gradient(180deg, #1a1244, #0d082a);
-  box-shadow: 0 0 30px rgba(255,63,216,0.45);
+  margin-top:18px;
+  padding:18px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#1c144a,#0d082a);
+  box-shadow:0 0 34px rgba(255,111,174,0.5);
   text-align:center;
-  animation: unlock 600ms ease forwards;
+  animation:fadeUp 600ms ease forwards;
 }
-
-@keyframes unlock{
-  from{opacity:0; transform:scale(0.95)}
-  to{opacity:1; transform:scale(1)}
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(10px)}
+  to{opacity:1; transform:translateY(0)}
 }
 
 .yesTitle{
@@ -230,13 +176,12 @@ h1{
 .yesText{
   margin-top:8px;
   font-size:14px;
-  color:#f2eeff;
 }
 
 .sig{
   margin-top:10px;
   font-size:12px;
-  color:#cfc8ff;
+  color:#d6ceff;
 }
 
 canvas{
@@ -256,21 +201,24 @@ canvas{
   <div class="card">
 
     <div class="top">
-      <div class="icon"><span>✝</span></div>
+      <div class="icon"><span>❤</span></div>
       <h1 id="title"></h1>
     </div>
 
-    <div class="verse" id="verse"></div>
-    <div class="softNote" id="note"></div>
+    <div class="message" id="message"></div>
 
-    <div class="area" id="area">
-      <button class="btn yes" id="yesBtn">ACCEPT QUEST</button>
-      <button class="btn no" id="noBtn">DECLINE</button>
-      <div class="tiny" id="tiny">Objective: choose wisely</div>
+    <div class="verse">
+      <strong>1 Corinthians 13:7</strong><br>
+      Love bears all things, believes all things, hopes all things, endures all things.
+    </div>
+
+    <div class="actions">
+      <button class="yes" id="yesBtn">Yes</button>
+      <button class="no" id="noBtn">I need a moment</button>
     </div>
 
     <div class="yesScreen" id="yesScreen">
-      <div class="yesTitle">QUEST ACCEPTED ❤</div>
+      <div class="yesTitle">You are so loved ❤</div>
       <div class="yesText" id="yesText"></div>
       <div class="sig" id="sig"></div>
     </div>
@@ -287,57 +235,50 @@ canvas{
   const girlName="Lisa"
   const yourName="Isaiah"
 
-  title.textContent = girlName + " — Valentine Quest"
-  verse.innerHTML = "<strong>1 Corinthians 13:7</strong><br>Love bears all things, believes all things, hopes all things, endures all things."
-  note.textContent = "Player choice matters. Pray before selecting."
-
-  /* NO button dodge */
-  const phrases=[
-    "target locked ❌",
-    "nice try",
-    "not today",
-    "rerouting...",
-    "system override"
-  ]
-
-  function moveNo(){
-    const r=area.getBoundingClientRect()
-    noBtn.style.left=Math.random()*(r.width-140)+"px"
-    noBtn.style.top=Math.random()*(r.height-70)+"px"
-    tiny.textContent=phrases[Math.floor(Math.random()*phrases.length)]
+  /* typewriter */
+  function type(el,text,speed){
+    let i=0; el.textContent=""
+    const t=setInterval(()=>{
+      el.textContent+=text[i]||""
+      i++; if(i>=text.length) clearInterval(t)
+    },speed)
   }
-  noBtn.onmouseenter=moveNo
-  noBtn.onclick=moveNo
 
-  /* Floating icons */
-  for(let i=0;i<32;i++){
+  type(title, girlName + ", I wanted to ask you something", 55)
+
+  type(message,
+    "This isn’t about pressure or perfection. It’s about intention. " +
+    "You matter to me, and I wanted you to feel that — clearly, gently, honestly.",
+    22
+  )
+
+  /* floating hearts */
+  for(let i=0;i<30;i++){
     const e=document.createElement("div")
     e.className="floatItem"
-    e.textContent=Math.random()>0.6?"❤":"✝"
-    e.style.color=Math.random()>0.5?"#ff3fd8":"#4df3ff"
+    e.textContent="❤"
+    e.style.color=Math.random()>0.5?"#ff6fae":"#b28dff"
     e.style.left=Math.random()*100+"vw"
     e.style.fontSize=14+Math.random()*20+"px"
-    e.style.animationDuration=10+Math.random()*12+"s"
+    e.style.animationDuration=12+Math.random()*14+"s"
     bgFloat.appendChild(e)
   }
 
-  /* Confetti */
+  /* confetti */
   const ctx=confetti.getContext("2d")
   const resize=()=>{confetti.width=innerWidth;confetti.height=innerHeight}
   resize(); addEventListener("resize",resize)
   let p=[]
-
   function burst(){
     for(let i=0;i<160;i++){
       p.push({
-        x:innerWidth/2,y:innerHeight*0.3,
+        x:innerWidth/2,y:innerHeight*0.35,
         vx:(Math.random()-0.5)*9,
         vy:-Math.random()*9,
         a:1
       })
     }
   }
-
   function tick(){
     ctx.clearRect(0,0,confetti.width,confetti.height)
     p.forEach(o=>{
@@ -355,14 +296,18 @@ canvas{
     burst(); burst()
     yesScreen.style.display="block"
     yesText.textContent=
-      "You chose love. Jesus at the center, always. I choose you too."
-    sig.textContent="Ecclesiastes 4:12 — " + yourName
+      "Thank you for choosing love. I promise to lead with patience, faith, and intention."
+    sig.textContent="— " + yourName + "  |  Ecclesiastes 4:12"
 
     const song=document.getElementById("song")
     song.volume=0; song.play()
     let v=0; const f=setInterval(()=>{
-      v+=0.05; song.volume=v; if(v>=0.7) clearInterval(f)
+      v+=0.04; song.volume=v; if(v>=0.7) clearInterval(f)
     },120)
+  }
+
+  noBtn.onclick=()=>{
+    noBtn.textContent="That’s okay 💗"
   }
 })()
 </script>
